@@ -45,6 +45,12 @@ void benchmark_algorithms(int size, SortType chosen_sort, DataOrder dataOrder) {
             quick_sort_right_pivot(arr, 0, size - 1);
             end = std::chrono::high_resolution_clock::now();
             break;
+        case SortType::QuickRandom:
+            std::cout << "Quick random pivot sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            quick_sort_random_pivot(arr, 0, size - 1);
+            end = std::chrono::high_resolution_clock::now();
+            break;
         case SortType::Heap:
             std::cout << "Heap sort \n";
             start = std::chrono::high_resolution_clock::now();
@@ -52,13 +58,13 @@ void benchmark_algorithms(int size, SortType chosen_sort, DataOrder dataOrder) {
             end = std::chrono::high_resolution_clock::now();
             break;
         case SortType::Shell:
-            std::cout << "Shell sort \n";
+            std::cout << "Shell sort, Shell sequence \n";
             start = std::chrono::high_resolution_clock::now();
             shell_sort(arr, size);
             end = std::chrono::high_resolution_clock::now();
             break;
         case SortType::ShellCiura:
-            std::cout << "Shell ciura sort \n";
+            std::cout << "Shell sort, Ciura sequence\n";
             start = std::chrono::high_resolution_clock::now();
             shell_ciura_sort(arr, size);
             end = std::chrono::high_resolution_clock::now();
