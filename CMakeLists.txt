@@ -11,4 +11,10 @@ add_executable(ProjektAiZo main.cpp
         sorting/heapsort.tpp
         sorting/heapsort.h
         sorting/shellsort.tpp
-        sorting/shellsort.h)
+        sorting/shellsort.h
+        utils/benchmark.tpp
+        utils/benchmark.h
+        utils/data_sort_order.tpp
+        utils/data_sort_order.h
+        utils/print_check_array.tpp
+        utils/print_check_array.h)
