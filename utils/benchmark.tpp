@@ -79,3 +79,77 @@ void benchmark_algorithms(int size, SortType chosen_sort, DataOrder dataOrder) {
 
     delete[] arr;
 }
+
+template<typename T>
+void run_from_file(SortType chosen_sort) {
+    std::string path;
+    std::cout << "Enter file path: ";
+    std::cin >> path;
+
+    int size = 0;
+    T* arr = read_file<T>(path, size);
+    if (!arr) return;
+
+    std::cout << "\nLoaded " << size << " elements from file.\n";
+
+    auto start = std::chrono::high_resolution_clock::now();
+    auto end = std::chrono::high_resolution_clock::now();
+
+    switch (chosen_sort) {
+        case SortType::Insertion:
+            std::cout << "Insertion sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            insertion_sort(arr, size);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::QuickMiddle:
+            std::cout << "Quick middle pivot sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            quick_sort_middle_pivot(arr, 0, size - 1);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::QuickLeft:
+            std::cout << "Quick left pivot sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            quick_sort_left_pivot(arr, 0, size - 1);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::QuickRight:
+            std::cout << "Quick right pivot sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            quick_sort_right_pivot(arr, 0, size - 1);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::QuickRandom:
+            std::cout << "Quick random pivot sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            quick_sort_random_pivot(arr, 0, size - 1);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::Heap:
+            std::cout << "Heap sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            heap_sort(arr, size);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::Shell:
+            std::cout << "Shell sort, Shell sequence \n";
+            start = std::chrono::high_resolution_clock::now();
+            shell_sort(arr, size);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::ShellCiura:
+            std::cout << "Shell sort, Ciura sequence\n";
+            start = std::chrono::high_resolution_clock::now();
+            shell_ciura_sort(arr, size);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+    }
+
+    std::chrono::duration<double, std::milli> elapsed = end - start;
+
+    std::cout << "Time: " << elapsed.count() << " ms | Sorted? "
+              << (is_sorted<T>(arr, size) ? "YES" : "NO") << "\n";
+
+    delete[] arr;
+}

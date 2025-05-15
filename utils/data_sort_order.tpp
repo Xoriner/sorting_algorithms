@@ -58,3 +58,34 @@ void fill_data(T* arr, int size, DataOrder order) {
                 break;
     }
 }
+
+template<typename T>
+T* read_file(const std::string& filename, int& sizeOut) {
+    std::ifstream inFile(filename);
+    if (!inFile) {
+        std::cerr << "Error: Cannot open file.\n";
+        sizeOut = 0;
+        return nullptr;
+    }
+
+    int count = 0;
+    T temp;
+    while (inFile >> temp)
+        ++count;
+
+    if (count == 0) {
+        std::cerr << "Error: File is empty or invalid.\n";
+        sizeOut = 0;
+        return nullptr;
+    }
+
+    inFile.clear();
+    inFile.seekg(0);
+
+    T* arr = new T[count];
+    for (int i = 0; i < count; ++i)
+        inFile >> arr[i];
+
+    sizeOut = count;
+    return arr;
+}

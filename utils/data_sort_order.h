@@ -2,6 +2,8 @@
 #define DATA_SORT_ORDER_H
 
 #include "../sorting/quicksort.h"
+#include <fstream>
+#include <string>
 enum class SortType {
     Insertion,
     QuickMiddle,
@@ -32,6 +34,9 @@ void sort_prefix(T* arr, int size, double fraction);
 
 template<typename T>
 void reverse_sort(T* arr, int size);
+
+template<typename T>
+T* read_file(const std::string& filename, int& sizeOut);
 
 #include "data_sort_order.tpp"
 

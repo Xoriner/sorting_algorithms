@@ -15,5 +15,8 @@
 template<typename T>
 void benchmark_algorithms(int size, SortType chosen_sort, DataOrder dataOrder);
 
+template<typename T>
+void run_from_file(SortType chosen_sort);
+
 #include "benchmark.tpp"
 #endif //BENCHMARK_H

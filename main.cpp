@@ -28,25 +28,28 @@ int main() {
     srand(static_cast<unsigned>(time(nullptr)));
 
     while (true) {
+        std::cin.clear();
         std::cout << "\n==== SORT BENCHMARK MENU ====\n";
-        std::cout << "\n Choose testing mode \n";
-        std::cout << "1. automatic (test every case for every algorithm)\n";
-        std::cout << "2. manual (choose parameters)\n";
-
+        std::cout << "1. Automatic test of all algorithms and inputs\n";
+        std::cout << "2. Manual selection of parameters\n";
         std::cout << "Choose testing mode (1-2, 0 to exit):";
         int testChoice;
         std::cin >> testChoice;
+        if (testChoice == 0) break;
         if (testChoice == 1) {
             test_everything();
             break;
         }
 
-        std::cout << "1. int\n";
-        std::cout << "2. float\n";
-        std::cout << "Choose data type (1-2, 0 to exit): ";
+        std::cout << "Choose data type:\n1. int\n2. float\n> ";
         int typeChoice;
         std::cin >> typeChoice;
         if (typeChoice == 0) break;
+
+        std::cout << "Read data from file? (y/n):";
+        char readFile;
+        std::cin >> readFile;
+        bool fileMode = (readFile == 'y' || readFile == 'Y');
 
         std::cout << "\nAvailable sorting algorithms:\n";
         std::cout << "1. Insertion Sort\n";
@@ -57,7 +60,7 @@ int main() {
         std::cout << "6. Heap Sort\n";
         std::cout << "7. Shell Sort (Classic)\n";
         std::cout << "8. Shell Sort (Ciura sequence)\n";
-        std::cout << "Choose sorting algorithm (1-7): ";
+        std::cout << "Choose algorithm (1-8):";
         int algoChoice;
         std::cin >> algoChoice;
 
@@ -72,52 +75,48 @@ int main() {
             case 7: algorithm = SortType::Shell; break;
             case 8: algorithm = SortType::ShellCiura; break;
             default:
-                std::cout << "Invalid sorting algorithm.\n";
+                std::cout << "Invalid algorithm.\n";
                 continue;
         }
 
-        std::cout << "\nInitial data ordering:\n";
-        std::cout << "1. Random\n";
-        std::cout << "2. Sorted\n";
-        std::cout << "3. Reversed\n";
-        std::cout << "4. 33% Sorted\n";
-        std::cout << "5. 66% Sorted\n";
-        std::cout << "Choose data order (1-5): ";
-        int orderChoice;
-        std::cin >> orderChoice;
-
-        DataOrder order;
-        switch (orderChoice) {
-            case 1: order = DataOrder::Random; break;
-            case 2: order = DataOrder::Sorted; break;
-            case 3: order = DataOrder::Reversed; break;
-            case 4: order = DataOrder::Partial33; break;
-            case 5: order = DataOrder::Partial66; break;
-            default:
-                std::cout << "Invalid data order.\n";
-                continue;
-        }
-
-        std::cout << "\nEnter array size: ";
-        int size;
-        std::cin >> size;
-        if (size <= 0) {
-            std::cout << "Invalid size.\n";
-            continue;
-        }
-
-        std::cout << "\n--- Running Benchmark ---\n";
-
-        if (typeChoice == 1) {
-            benchmark_algorithms<int>(size, algorithm, order);
-        } else if (typeChoice == 2) {
-            benchmark_algorithms<float>(size, algorithm, order);
+        if (fileMode) {
+            if (typeChoice == 1)
+                run_from_file<int>(algorithm);
+            else
+                run_from_file<float>(algorithm);
         } else {
-            std::cout << "Invalid type.\n";
-            continue;
+            std::cout << "\nChoose data order:\n";
+            std::cout << "1. Random\n2. Sorted\n3. Reversed\n4. 33% Sorted\n5. 66% Sorted\n> ";
+            int orderChoice;
+            std::cin >> orderChoice;
+
+            DataOrder order;
+            switch (orderChoice) {
+                case 1: order = DataOrder::Random; break;
+                case 2: order = DataOrder::Sorted; break;
+                case 3: order = DataOrder::Reversed; break;
+                case 4: order = DataOrder::Partial33; break;
+                case 5: order = DataOrder::Partial66; break;
+                default:
+                    std::cout << "Invalid data order.\n";
+                    continue;
+            }
+
+            int size;
+            std::cout << "Enter array size:";
+            std::cin >> size;
+            if (size <= 0) {
+                std::cout << "Invalid size.\n";
+                continue;
+            }
+
+            if (typeChoice == 1)
+                benchmark_algorithms<int>(size, algorithm, order);
+            else
+                benchmark_algorithms<float>(size, algorithm, order);
         }
 
-        std::cout << "\nRun another test? (y/n): ";
+        std::cout << "\nRun another test? (y/n):";
         char again;
         std::cin >> again;
         if (again != 'y' && again != 'Y') break;
