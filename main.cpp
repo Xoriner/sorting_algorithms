@@ -7,7 +7,7 @@
 #include <cstring>  // dla memcpy
 
 #include "sorting/insertionsort.h"
-//#include "sorting/heapsort.h"
+#include "sorting/heapsort.h"
 //#include "sorting/shellsort.h"
 #include "sorting/quicksort.h"
 
@@ -89,6 +89,20 @@ void benchmark_algorithms(int size) {
     }
     delete[] arr2;
 
+    // Heap Sort
+    T* arr3 = new T[size];
+    std::memcpy(arr3, original, sizeof(T) * size);
+    auto start3 = std::chrono::high_resolution_clock::now();
+    heap_sort<T>(arr3, size);
+    auto end3 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> elapsed3 = end3 - start3;
+    std::cout << "Heap sort:     " << elapsed3.count() << " ms | Posortowana? "
+              << (is_sorted<T>(arr3, size) ? "TAK" : "NIE") << "\n";
+    if (size == 10) {
+        print_array<T>(arr3, size);
+    }
+    delete[] arr3;
+
     delete[] original;
 }
 
@@ -97,7 +111,7 @@ int main() {
     // generator
     srand(static_cast<unsigned>(time(nullptr)));
 
-    int sizes[] = {10000, 20000, 40000, 80000, 100000, 150000, 200000};
+    int sizes[] = {10, 10000, 20000, 40000, 80000, 100000, 150000, 200000};
 
     for (int size : sizes) {
         benchmark_algorithms<int>(size);
