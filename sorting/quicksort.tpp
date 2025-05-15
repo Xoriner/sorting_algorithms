@@ -1,9 +1,8 @@
 #include "quicksort.h"
+#include <stack>
+#include <cstdlib> // rand()
 
 // ======== QUICKSORT IMPLEMENTACJA ========
-
-
-
 template<typename T>
 void quick_sort_recursion(T* arr, int low, int high) {
     if (low < high) {
@@ -17,8 +16,8 @@ void quick_sort_recursion(T* arr, int low, int high) {
         }
         std::swap(arr[i + 1], arr[high]);
         int pi = i + 1;
-        quick_sort(arr, low, pi - 1);
-        quick_sort(arr, pi + 1, high);
+        quick_sort_recursion(arr, low, pi - 1);
+        quick_sort_recursion(arr, pi + 1, high);
     }
 }
 
@@ -104,8 +103,6 @@ void quick_sort_middle_pivot(T* arr, int low, int high) {
         stack.push({pi + 1, h});
     }
 }
-
-#include <cstdlib> // rand()
 
 template<typename T>
 void quick_sort_random_pivot(T* arr, int low, int high) {

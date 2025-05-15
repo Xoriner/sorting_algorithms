@@ -2,11 +2,14 @@
 #include <chrono>
 #include <cstdlib>
 #include <ctime>
-#include <stack>
 #include <typeinfo>
 #include <iomanip>
 #include <cstring>  // dla memcpy
 
+#include "sorting/insertionsort.h"
+//#include "sorting/heapsort.h"
+//#include "sorting/shellsort.h"
+#include "sorting/quicksort.h"
 
 
 // ======== WYPISANIE TABLICY ========
@@ -17,19 +20,6 @@ void print_array(const T* arr, int size) {
     std::cout << "\n";
 }
 
-// ======== INSERTION SORT ========
-template<typename T>
-void insertion_sort(T* arr, int size) {
-    for (int i = 1; i < size; ++i) {
-        T key = arr[i];
-        int j = i - 1;
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j--;
-        }
-        arr[j + 1] = key;
-    }
-}
 
 // ======== SPRAWDZANIE CZY POSORTOWANE ========
 template<typename T>
@@ -39,6 +29,7 @@ bool is_sorted(T* arr, int size) {
             return false;
     return true;
 }
+
 
 // ======== GENERATOR DANYCH ========
 template<typename T>
@@ -88,7 +79,7 @@ void benchmark_algorithms(int size) {
     T* arr2 = new T[size];
     std::memcpy(arr2, original, sizeof(T) * size);
     auto start2 = std::chrono::high_resolution_clock::now();
-    quick_sort<T>(arr2, 0, size - 1);
+    quick_sort_middle_pivot<T>(arr2, 0, size - 1);
     auto end2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> elapsed2 = end2 - start2;
     std::cout << "Quick Sort:     " << elapsed2.count() << " ms | Posortowana? "
@@ -106,7 +97,7 @@ int main() {
     // generator
     srand(static_cast<unsigned>(time(nullptr)));
 
-    int sizes[] = {10, 100, 1000, 10000};
+    int sizes[] = {10000, 20000, 40000, 80000, 100000, 150000, 200000};
 
     for (int size : sizes) {
         benchmark_algorithms<int>(size);
