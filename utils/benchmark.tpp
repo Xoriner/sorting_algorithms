@@ -27,10 +27,22 @@ void benchmark_algorithms(int size, SortType chosen_sort, DataOrder dataOrder) {
             insertion_sort(arr, size);
             end = std::chrono::high_resolution_clock::now();
             break;
-        case SortType::Quick:
-            std::cout << "Quick sort \n";
+        case SortType::QuickMiddle:
+            std::cout << "Quick middle pivot sort \n";
             start = std::chrono::high_resolution_clock::now();
             quick_sort_middle_pivot(arr, 0, size - 1);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::QuickLeft:
+            std::cout << "Quick left pivot sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            quick_sort_left_pivot(arr, 0, size - 1);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::QuickRight:
+            std::cout << "Quick right pivot sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            quick_sort_right_pivot(arr, 0, size - 1);
             end = std::chrono::high_resolution_clock::now();
             break;
         case SortType::Heap:
@@ -39,13 +51,25 @@ void benchmark_algorithms(int size, SortType chosen_sort, DataOrder dataOrder) {
             heap_sort(arr, size);
             end = std::chrono::high_resolution_clock::now();
             break;
+        case SortType::Shell:
+            std::cout << "Shell sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            shell_sort(arr, size);
+            end = std::chrono::high_resolution_clock::now();
+            break;
+        case SortType::ShellCiura:
+            std::cout << "Shell ciura sort \n";
+            start = std::chrono::high_resolution_clock::now();
+            shell_ciura_sort(arr, size);
+            end = std::chrono::high_resolution_clock::now();
+            break;
     }
 
     std::chrono::duration<double, std::milli> elapsed = end - start;
 
     std::cout << "Time: " << elapsed.count() << " ms | Posortowana? "
               << (is_sorted<T>(arr, size) ? "TAK" : "NIE") << "\n";
-    if (size == 10) print_array(arr, size);
+    if (size < 30) print_array(arr, size);
 
     delete[] arr;
 }

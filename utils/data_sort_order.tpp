@@ -1,5 +1,4 @@
 #include "data_sort_order.h"
-#include "../sorting/heapsort.h"
 
 // ======== GENERATOR DANYCH ========
 template<>
@@ -13,6 +12,29 @@ inline void fill_random<float>(float* arr, int size) {
     for (int i = 0; i < size; ++i)
         arr[i] = static_cast<float>(rand()) / RAND_MAX * 1000.0f;
 }
+// ======= SORTOWANIE % TABLICY =======
+template<typename T>
+void sort_prefix(T* arr, int size, double fraction) {
+    int part = static_cast<int>(size * fraction);
+    if (part > 1) {
+        quick_sort_middle_pivot(arr, 0, part - 1);
+    }
+}
+
+// ======= SORTOWANIE ODWROTNE =======
+template<typename T>
+void reverse_sort(T* arr, int size) {
+    if (size > 1) {
+        quick_sort_middle_pivot(arr, 0, size - 1);
+        // ręczne odwracanie
+        for (int i = 0; i < size / 2; ++i) {
+            T tmp = arr[i];
+            arr[i] = arr[size - 1 - i];
+            arr[size - 1 - i] = tmp;
+        }
+    }
+}
+
 
 template<typename T>
 void fill_data(T* arr, int size, DataOrder order) {
@@ -20,17 +42,17 @@ void fill_data(T* arr, int size, DataOrder order) {
 
     switch (order) {
         case DataOrder::Sorted:
-            heap_sort(arr, size);
+            quick_sort_middle_pivot(arr, 0, size - 1);
         break;
-        /*case DataOrder::Reversed:
-            std::sort(arr, arr + size, std::greater<T>());
+        case DataOrder::Reversed:
+            reverse_sort(arr, size);
         break;
         case DataOrder::Partial33:
-            std::sort(arr, arr + size * 0.33);
+            sort_prefix(arr, size, 0.33);
         break;
         case DataOrder::Partial66:
-            std::sort(arr, arr + size * 0.66);
-        break;*/
+            sort_prefix(arr, size, 0.66);
+        break;
         case DataOrder::Random:
             default:
                 break;

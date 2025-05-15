@@ -1,10 +1,16 @@
 #ifndef DATA_SORT_ORDER_H
 #define DATA_SORT_ORDER_H
 
+#include "../sorting/quicksort.h"
 enum class SortType {
     Insertion,
-    Quick,
-    Heap
+    QuickMiddle,
+    QuickLeft,
+    QuickRight,
+    QuickRandom,
+    Heap,
+    Shell,
+    ShellCiura
 };
 
 enum class DataOrder {
@@ -20,6 +26,12 @@ void fill_random(T* arr, int size);
 
 template<typename T>
 void fill_data(T* arr, int size, DataOrder order);
+
+template<typename T>
+void sort_prefix(T* arr, int size, double fraction);
+
+template<typename T>
+void reverse_sort(T* arr, int size);
 
 #include "data_sort_order.tpp"
 

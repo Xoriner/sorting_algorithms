@@ -1,16 +1,12 @@
-//
-// Created by terra on 15.05.2025.
-//
-
 #ifndef SHELLSORT_H
 #define SHELLSORT_H
 
+template<typename T>
+void shell_sort(T* arr, int n);
 
+template<typename T>
+void shell_ciura_sort(T* arr, int n);
 
-class shellsort {
-
-};
-
-
+#include "shellsort.tpp"
 
 #endif //SHELLSORT_H
