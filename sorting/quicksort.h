@@ -10,4 +10,4 @@ void quick_sort_pivot_random(T* arr, int low, int high); // deklaracja
 
 #include "quicksort.tpp" //implementacja
 
-#endif // QUICKSORT_H
+#endif // QUICKSORT_
