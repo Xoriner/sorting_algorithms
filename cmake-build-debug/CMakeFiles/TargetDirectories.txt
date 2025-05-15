@@ -1,0 +1,3 @@
+C:/Users/terra/OneDrive - Politechnika Wroclawska/studia/4 semestr/AIZO/projekt/ProjektAiZo/cmake-build-debug/CMakeFiles/ProjektAiZo.dir
+C:/Users/terra/OneDrive - Politechnika Wroclawska/studia/4 semestr/AIZO/projekt/ProjektAiZo/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/terra/OneDrive - Politechnika Wroclawska/studia/4 semestr/AIZO/projekt/ProjektAiZo/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,17 @@
+Algorytm,Typ,Rozmiar,Czas,Poprawność
+Insertion Sort,i,10,0.000 ms,OK
+Quick Sort,i,10,0.000 ms,OK
+Insertion Sort,f,10,0.000 ms,OK
+Quick Sort,f,10,0.000 ms,OK
+Insertion Sort,i,100,0.006 ms,OK
+Quick Sort,i,100,0.006 ms,OK
+Insertion Sort,f,100,0.005 ms,OK
+Quick Sort,f,100,0.007 ms,OK
+Insertion Sort,i,1000,0.324 ms,OK
+Quick Sort,i,1000,0.065 ms,OK
+Insertion Sort,f,1000,0.320 ms,OK
+Quick Sort,f,1000,0.088 ms,OK
+Insertion Sort,i,10000,32.999 ms,OK
+Quick Sort,i,10000,0.724 ms,OK
+Insertion Sort,f,10000,32.120 ms,OK
+Quick Sort,f,10000,0.909 ms,OK
