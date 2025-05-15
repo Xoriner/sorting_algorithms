@@ -2,12 +2,12 @@
 #define QUICKSORT_H
 
 template<typename T>
-void quick_sort_recursion(T* arr, int low, int high); // deklaracje funkcji
-void quick_sort_pivot_left(T* arr, int low, int high);
-void quick_sort_pivot_right(T* arr, int low, int high);
-void quick_sort_pivot_middle(T* arr, int low, int high);
-void quick_sort_pivot_random(T* arr, int low, int high); // deklaracja
+void quick_sort_recursion(T* arr, int low, int high); // declaration of functions
+void quick_sort_left_pivot(T* arr, int low, int high);
+void quick_sort_right_pivot(T* arr, int low, int high);
+void quick_sort_middle_pivot(T* arr, int low, int high);
+void quick_sort_random_pivot(T* arr, int low, int high);
 
-#include "quicksort.tpp" //implementacja
+#include "quicksort.tpp" // implementation
 
 #endif // QUICKSORT_H
